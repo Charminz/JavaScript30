@@ -58,9 +58,28 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  const keys = document.getElementsByClassName("key")
+  const audios = document.getElementsByTagName("audio")
+  let playing = null
 
+  document.addEventListener("keypress", (event) => {
+    const code = event.keyCode
+
+    if (playing) {
+      playing.pause()
+      playing.reload()
+    }
+    let track = null
+
+    for (var i=0, max=audios.length; i < max; i++) {
+      if (audios[i].getAttribute("data-key") == code) track = audios[i]
+    }
+
+    if (track) {
+      playing = track
+      track.play()
+    }
+  })
 </script>
-
-
 </body>
 </html>
